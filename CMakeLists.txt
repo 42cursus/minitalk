@@ -56,8 +56,8 @@ add_custom_target(${TARGET_NAME}_target
         COMMAND cp ${TARGET_IMPORTED_LOCATION} ${CMAKE_CURRENT_BINARY_DIR}/
         COMMENT "Building ${TARGET_NAME}")
 
-add_executable(${TARGET_NAME} IMPORTED)
-add_dependencies(${TARGET_NAME} ${TARGET_NAME}_target)
+add_executable(${TARGET_NAME}_t IMPORTED)
+add_dependencies(${TARGET_NAME}_t ${TARGET_NAME}_target)
 set_target_properties(${TARGET_NAME}_target PROPERTIES
         LINKER_LANGUAGE C
         IMPORTED_LOCATION ${TARGET_IMPORTED_LOCATION} # Make sure to use absolute path here
@@ -65,6 +65,17 @@ set_target_properties(${TARGET_NAME}_target PROPERTIES
         INTERFACE_SOURCES "${TARGET_HEADERS};${TARGET_SOURCES}"
         INTERFACE_LINK_LIBRARIES "${FTLIB_name}"
         INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+add_executable(${TARGET_NAME} /dev/null)
+target_link_libraries(${TARGET_NAME} ${FTLIB_name})
+
+set_target_properties(${TARGET_NAME}
+        PROPERTIES
+        LINKER_LANGUAGE C
+        COMPILE_OPTIONS "-c"
+        LINK_OPTIONS "-c"
+)
+add_dependencies(${TARGET_NAME} ${TARGET_NAME}_t)
 
 set(TARGET_NAME server)
 file(GLOB TARGET_HEADERS "src/${TARGET_NAME}/*.h")
@@ -81,9 +92,9 @@ add_custom_target(${TARGET_NAME}_target
     COMMAND cp ${TARGET_IMPORTED_LOCATION} ${CMAKE_CURRENT_BINARY_DIR}/
     COMMENT "Building ${TARGET_NAME}")
 
-add_executable(${TARGET_NAME} IMPORTED)
-add_dependencies(${TARGET_NAME} ${TARGET_NAME}_target)
-set_target_properties(${TARGET_NAME} PROPERTIES
+add_executable(${TARGET_NAME}_t IMPORTED)
+add_dependencies(${TARGET_NAME}_t ${TARGET_NAME}_target)
+set_target_properties(${TARGET_NAME}_t PROPERTIES
         LINKER_LANGUAGE C
         IMPORTED_LOCATION ${TARGET_IMPORTED_LOCATION} # Make sure to use absolute path here
         INTERFACE_COMPILE_DEFINITIONS "OPTIMISTIC"
@@ -91,13 +102,16 @@ set_target_properties(${TARGET_NAME} PROPERTIES
         INTERFACE_LINK_LIBRARIES "${FTLIB_name}"
         INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
-add_executable(dummy /dev/null)
-target_link_libraries(dummy ${FTLIB_name})
+add_executable(${TARGET_NAME} /dev/null)
+target_link_libraries(${TARGET_NAME} ${FTLIB_name})
 
-set_target_properties(dummy
+set_target_properties(${TARGET_NAME}
         PROPERTIES
-        LINKER_LANGUAGE ASM)
-add_dependencies(dummy server client)
+            LINKER_LANGUAGE C
+            COMPILE_OPTIONS "-c"
+            LINK_OPTIONS "-c"
+)
+add_dependencies(${TARGET_NAME} ${TARGET_NAME}_t)
 
 add_custom_target(fclean
         COMMAND make -C ${FTLIB_dir} fclean)

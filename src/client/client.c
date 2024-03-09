@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
+#include "client.h"
 
 static volatile t_global_lock	g_lock = {0};
 

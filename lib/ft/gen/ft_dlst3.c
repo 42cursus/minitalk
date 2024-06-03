@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_dlist_info	*ft_dlist_prepend(t_dlist_info *list, int value)
+t_ilst	*ft_dlist_prepend(t_ilst *list, int value)
 {
 	t_dnode	*new_dnode;
 
@@ -28,7 +28,7 @@ t_dlist_info	*ft_dlist_prepend(t_dlist_info *list, int value)
  * Shift up all elements of stack a by 1.
  * The first element becomes the last one.
  */
-t_dlist_info	*ft_dlist_rotate(t_dlist_info *list)
+t_ilst	*ft_dlist_rotate(t_ilst *list)
 {
 	if (!list)
 		return (NULL);
@@ -41,7 +41,7 @@ t_dlist_info	*ft_dlist_rotate(t_dlist_info *list)
  * Shift up all elements of stack a by 1.
  * The first element becomes the last one.
  */
-t_dlist_info	*ft_dlist_rev_rotate(t_dlist_info *list)
+t_ilst	*ft_dlist_rev_rotate(t_ilst *list)
 {
 	if (!list)
 		return (NULL);

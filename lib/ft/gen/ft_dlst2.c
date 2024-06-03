@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_dnode	*ft_dlist_pop(t_dlist_info *list)
+t_dnode	*ft_dlist_pop(t_ilst *list)
 {
 	t_dnode	*elem;
 	t_dnode	*next;
@@ -24,7 +24,7 @@ t_dnode	*ft_dlist_pop(t_dlist_info *list)
 	{
 		elem = list->head;
 		next = elem->next;
-		if(next)
+		if (next)
 			next->prev = NULL;
 		list->head = next;
 		elem->next = NULL;
@@ -33,7 +33,7 @@ t_dnode	*ft_dlist_pop(t_dlist_info *list)
 	return (elem);
 }
 
-t_dnode	*ft_dlist_pop_back(t_dlist_info *list)
+t_dnode	*ft_dlist_pop_back(t_ilst *list)
 {
 	t_dnode	*elem;
 	t_dnode	*prev;
@@ -53,7 +53,7 @@ t_dnode	*ft_dlist_pop_back(t_dlist_info *list)
 	return (elem);
 }
 
-t_dlist_info	*ft_dlist_push_back(t_dlist_info *list, t_dnode *dnode)
+t_ilst	*ft_dlist_push_back(t_ilst *list, t_dnode *dnode)
 {
 	list->size++;
 	if (list->head && list->tail)
@@ -70,7 +70,7 @@ t_dlist_info	*ft_dlist_push_back(t_dlist_info *list, t_dnode *dnode)
 	return (list);
 }
 
-t_dlist_info	*ft_dlist_append(t_dlist_info *list, int value)
+t_ilst	*ft_dlist_append(t_ilst *list, int value)
 {
 	t_dnode	*new_dnode;
 
@@ -82,7 +82,7 @@ t_dlist_info	*ft_dlist_append(t_dlist_info *list, int value)
 	return (ft_dlist_push_back(list, new_dnode));
 }
 
-t_dlist_info	*ft_dlist_push(t_dlist_info *list, t_dnode *dnode)
+t_ilst	*ft_dlist_push(t_ilst *list, t_dnode *dnode)
 {
 	list->size++;
 	if (list->head && list->tail)

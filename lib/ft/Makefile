@@ -58,4 +58,4 @@ re: fclean all
 norm:
 		@norminette $(SRCS)
 
-.PHONY: all clean flean re bonus $(BUILD_DIR)
+.PHONY: all clean flean re bonus norm

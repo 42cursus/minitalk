@@ -19,11 +19,11 @@
  * The variable 'next' is initialized to NULL.
  * The variable 'next' is initialized to NULL.
  */
-t_dlist_info	*ft_dlst_new(void)
+t_ilst	*ft_dlst_new(void)
 {
-	t_dlist_info	*lst;
+	t_ilst	*lst;
 
-	lst = (t_dlist_info *)malloc(sizeof(t_dlist_info) * 1);
+	lst = (t_ilst *)malloc(sizeof(t_ilst) * 1);
 	if (!lst)
 		return (NULL);
 	lst->head = NULL;
@@ -45,9 +45,7 @@ t_dnode	*ft_dnode_new(int value)
 	return (dnode);
 }
 
-void	ft_dlist_foreach(t_dlist_info *list,
-						 t_func func,
-						 void *user_data)
+void	ft_dlist_foreach(t_ilst *list, t_func func, void *user_data)
 {
 	t_dnode	*elem;
 	t_dnode	*next;
@@ -61,7 +59,7 @@ void	ft_dlist_foreach(t_dlist_info *list,
 	}
 }
 
-void	ft_dlist_free(t_dlist_info *list)
+void	ft_dlist_free(t_ilst *list)
 {
 	t_dnode	*elem;
 	t_dnode	*next;
@@ -77,7 +75,7 @@ void	ft_dlist_free(t_dlist_info *list)
 	}
 }
 
-void	ft_dlist_free_full(t_dlist_info **list)
+void	ft_dlist_free_full(t_ilst **list)
 {
 	if (!list)
 		return ;

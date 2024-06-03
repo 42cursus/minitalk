@@ -11,18 +11,16 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include "client.h"
 
 static volatile t_global_lock	g_lock = {0};
 
 void	handle_signal(int signum, siginfo_t *info, void *ctx)
 {
+	((void)info, (void)ctx);
 	if (signum == SIGUSR1)
 		g_lock.bit_received = 1;
 	if (signum == SIGUSR2)
 		g_lock.byte_received = 1;
-	(void) info;
-	(void) ctx;
 }
 
 void	set_sig_handlers(void)
@@ -58,10 +56,10 @@ int	send_char(pid_t pid, char c)
 			exit(EXIT_FAILURE);
 		mask >>= 1;
 		while (!g_lock.bit_received)
-			pause();
+			;
 	}
 	while (!g_lock.byte_received)
-		pause();
+		;
 	return (0);
 }
 
@@ -78,8 +76,8 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	set_sig_handlers();
-	str = argv[1];
-	pid = ft_atoi(argv[2]);
+	str = argv[2];
+	pid = ft_atoi(argv[1]);
 	while (*str)
 		send_char(pid, *str++);
 	send_char(pid, '\0');

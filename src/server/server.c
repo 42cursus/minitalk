@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include <minitalk.h>
 
-void confirm_byte(t_context *cont, int sipid) {
-	char c;
+void	confirm_byte(t_context *cont, int sipid)
+{
+	char	c;
 
 	c = (char) cont->c;
 	if (c == '\0')
@@ -78,16 +79,15 @@ void confirm_byte(t_context *cont, int sipid) {
  *
  * info->_sifields._kill.si_pid => info->si_pid;
  */
-void sig_handler(int sig, siginfo_t *info, void *ctx) {
-	static t_context cont = {0};
-	int sipid;
-	ucontext_t *ucontext;
+void	sig_handler(int sig, siginfo_t *info, void *ctx)
+{
+	int					sipid;
+	static t_context	cont = {0};
 
 	sipid = info->si_pid;
-	ucontext = (ucontext_t *) ctx;
-
-	(void) ucontext;
-	if (CHAR_BIT > cont.i) {
+	(void)ctx;
+	if (CHAR_BIT > cont.i)
+	{
 		if (sig == SIGUSR1)
 			cont.c = (cont.c << 1) | 0b00000001;
 		else if (sig == SIGUSR2)
@@ -97,12 +97,14 @@ void sig_handler(int sig, siginfo_t *info, void *ctx) {
 			exit(EXIT_FAILURE);
 		if (CHAR_BIT == cont.i)
 			confirm_byte(&cont, sipid);
-	} else
+	}
+	else
 		confirm_byte(&cont, sipid);
 }
 
-int main(void) {
-	t_sigaction act;
+int	main(void)
+{
+	t_sigaction	act;
 
 	act.sa_flags = SA_SIGINFO | SA_RESTART;
 	act.sa_sigaction = &sig_handler;

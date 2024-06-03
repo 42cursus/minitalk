@@ -172,7 +172,7 @@ char	*ft_strrchr(const char *s, int chr);
  * byte in s2 from the last compared byte in s1. (If the two characters are
  * equal, this difference is 0.).
  */
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /**
  * The ft_strnstr() function locates the first occurrence of the null-terminated
@@ -212,7 +212,8 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }				t_list;
-typedef struct s_dnode {
+typedef struct s_dnode
+{
 	int				value;
 	struct s_dnode	*next;
 	struct s_dnode	*prev;
@@ -223,21 +224,22 @@ typedef struct s_dlist_info
 	int		size;
 	t_dnode	*head;
 	t_dnode	*tail;
-}					t_dlist_info;
+}	t_ilst;
+
 typedef void	(*t_func)(void *data, void *user_data);
-t_dlist_info	*ft_dlst_new(void);
+t_ilst	*ft_dlst_new(void);
 t_dnode	*ft_dnode_new(int value);
-void	ft_dlist_foreach(t_dlist_info *list, t_func func, void *user_data);
-void	ft_dlist_free(t_dlist_info *list);
-void	ft_dlist_free_full(t_dlist_info **list);
-t_dnode	*ft_dlist_pop(t_dlist_info *list);
-t_dnode	*ft_dlist_pop_back(t_dlist_info *list);
-t_dlist_info	*ft_dlist_append(t_dlist_info *list, int value);
-t_dlist_info	*ft_dlist_prepend(t_dlist_info *list, int value);
-t_dlist_info	*ft_dlist_push(t_dlist_info *list, t_dnode *dnode);
-t_dlist_info	*ft_dlist_push_back(t_dlist_info *list, t_dnode *dnode);
-t_dlist_info	*ft_dlist_rotate(t_dlist_info *list);
-t_dlist_info	*ft_dlist_rev_rotate(t_dlist_info *list);
+void	ft_dlist_foreach(t_ilst *list, t_func func, void *user_data);
+void	ft_dlist_free(t_ilst *list);
+void	ft_dlist_free_full(t_ilst **list);
+t_dnode	*ft_dlist_pop(t_ilst *list);
+t_dnode	*ft_dlist_pop_back(t_ilst *list);
+t_ilst	*ft_dlist_append(t_ilst *list, int value);
+t_ilst	*ft_dlist_prepend(t_ilst *list, int value);
+t_ilst	*ft_dlist_push(t_ilst *list, t_dnode *dnode);
+t_ilst	*ft_dlist_push_back(t_ilst *list, t_dnode *dnode);
+t_ilst	*ft_dlist_rotate(t_ilst *list);
+t_ilst	*ft_dlist_rev_rotate(t_ilst *list);
 t_list	*ft_lstnew(void *content);
 
 int		ft_lstsize(t_list *lst);

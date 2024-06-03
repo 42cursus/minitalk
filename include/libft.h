@@ -1,1 +1,1 @@
-../lib/libft/libft.h
+../lib/ft/libft.h
